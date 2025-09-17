@@ -1,6 +1,11 @@
+-- ===============================
+-- Break-Bones AutoBuy Script
+-- Integrated with Fluent UI
+-- ===============================
+
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade
+local PurchaseBoneUpgrade = ReplicatedStorage.Remotes:WaitForChild("PurchaseBoneUpgrade")
 
 -- Global toggles
 getgenv().autoPurchaseHead = false
@@ -8,7 +13,9 @@ getgenv().autoPurchaseTorso = false
 getgenv().autoPurchaseArm = false
 getgenv().autoPurchaseLeg = false
 
--- Function to handle purchasing
+-- ===============================
+-- AutoBuy loops
+-- ===============================
 local function AutoBuyLoop(part, toggleVar)
     spawn(function()
         while true do
@@ -20,7 +27,6 @@ local function AutoBuyLoop(part, toggleVar)
     end)
 end
 
--- Start loops for all parts
 AutoBuyLoop("Head", "autoPurchaseHead")
 AutoBuyLoop("Torso", "autoPurchaseTorso")
 AutoBuyLoop("Arm", "autoPurchaseArm")
