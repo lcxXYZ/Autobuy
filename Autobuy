@@ -1,79 +1,27 @@
--- Generated with Sigma Spy Github: https://github.com/depthso/Sigma-Spy
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade
 
--- Remote
-local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade -- RemoteEvent 
+-- Global toggles
+getgenv().autoPurchaseHead = false
+getgenv().autoPurchaseTorso = false
+getgenv().autoPurchaseArm = false
+getgenv().autoPurchaseLeg = false
 
--- Global toggle variable
-getgenv().autoPurchaseHead = false -- start off
-
--- Function to handle the loop
-spawn(function()
-    while true do
-        if getgenv().autoPurchaseTorso then
-            PurchaseBoneUpgrade:FireServer("Head")
+-- Function to handle purchasing
+local function AutoBuyLoop(part, toggleVar)
+    spawn(function()
+        while true do
+            if getgenv()[toggleVar] then
+                PurchaseBoneUpgrade:FireServer(part)
+            end
+            wait(1)
         end
-        wait(1) -- runs every 1 second
-    end
-end)
---head
--- Generated with Sigma Spy Github: https://github.com/depthso/Sigma-Spy
--- Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    end)
+end
 
--- Remote
-local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade -- RemoteEvent 
-
--- Global toggle variable
-getgenv().autoPurchaseTorso = false -- start off
-
--- Function to handle the loop
-spawn(function()
-    while true do
-        if getgenv().autoPurchaseTorso then
-            PurchaseBoneUpgrade:FireServer("Torso")
-        end
-        wait(1) -- runs every 1 second
-    end
-end)
---torso
--- Generated with Sigma Spy Github: https://github.com/depthso/Sigma-Spy
--- Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
--- Remote
-local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade -- RemoteEvent 
-
--- Global toggle variable
-getgenv().autoPurchaseArm = false -- start off
-
--- Function to handle the loop
-spawn(function()
-    while true do
-        if getgenv().autoPurchaseTorso then
-            PurchaseBoneUpgrade:FireServer("Arm")
-        end
-        wait(1) -- runs every 1 second
-    end
-end)
---arm
--- Generated with Sigma Spy Github: https://github.com/depthso/Sigma-Spy
--- Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
--- Remote
-local PurchaseBoneUpgrade = ReplicatedStorage.Remotes.PurchaseBoneUpgrade -- RemoteEvent 
-
--- Global toggle variable
-getgenv().autoPurchaseLeg = false -- start off
-
--- Function to handle the loop
-spawn(function()
-    while true do
-        if getgenv().autoPurchaseTorso then
-            PurchaseBoneUpgrade:FireServer("Leg")
-        end
-        wait(1) -- runs every 1 second
-    end
-end)
+-- Start loops for all parts
+AutoBuyLoop("Head", "autoPurchaseHead")
+AutoBuyLoop("Torso", "autoPurchaseTorso")
+AutoBuyLoop("Arm", "autoPurchaseArm")
+AutoBuyLoop("Leg", "autoPurchaseLeg")
