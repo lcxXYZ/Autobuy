@@ -27,14 +27,13 @@ local function AutoBuyLoop(part, toggleVar)
     end)
 end
 
-AutoBuyLoop("Head", "autoPurchaseHead")
-AutoBuyLoop("Torso", "autoPurchaseTorso")
-AutoBuyLoop("Arm", "autoPurchaseArm")
-AutoBuyLoop("Leg", "autoPurchaseLeg")
+-- Global toggle for Next Ragdoll
+getgenv().autoPurchaseNextRagdoll = false
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+-- Remote
 local PurchaseNextRagdoll = ReplicatedStorage.Remotes:WaitForChild("PurchaseNextRagdoll")
 
+-- AutoBuy loop for Next Ragdoll
 spawn(function()
     while true do
         if getgenv().autoPurchaseNextRagdoll then
