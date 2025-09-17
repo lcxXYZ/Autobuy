@@ -31,3 +31,15 @@ AutoBuyLoop("Head", "autoPurchaseHead")
 AutoBuyLoop("Torso", "autoPurchaseTorso")
 AutoBuyLoop("Arm", "autoPurchaseArm")
 AutoBuyLoop("Leg", "autoPurchaseLeg")
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local PurchaseNextRagdoll = ReplicatedStorage.Remotes:WaitForChild("PurchaseNextRagdoll")
+
+spawn(function()
+    while true do
+        if getgenv().autoPurchaseNextRagdoll then
+            PurchaseNextRagdoll:FireServer()
+        end
+        wait(1) -- adjust interval if needed
+    end
+end)
